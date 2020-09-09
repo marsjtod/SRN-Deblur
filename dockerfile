@@ -9,15 +9,23 @@
 # (CPU version)
 # ==> python run_model.py --gpu=-1 --input_path=./testing_set --output_path=./testing_res
 
+# 1. GPU enabled OS
 FROM kmubigdata/ubuntu-cuda-cudnn
 
+# 2. basic
 RUN apt-get update
 RUN apt-get install -y libcupti-dev
+
+# 3. pip
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN apt-get -y install python
 RUN python get-pip.py 
 RUN apt-get install -y python-pip python-dev 
+
+# 4. tensorflow
+# tensorflow python
 RUN pip install tensorflow-gpu==1.4
 ENV LD_LIBRARY_PATH /usr/local/cuda-8.0/lib64/:${LD_LIBRARY_PATH}
 
+# 5. pip modules
 RUN pip install scipy Scikit-image numpy
